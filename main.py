@@ -10,7 +10,7 @@ LINE = "Fixed a bug where sleep stopped at 3 a.m. to replay that embarrassing th
 
 
 def main() -> None:
-    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
+    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
     with open(path, "w", encoding="utf-8") as f:
@@ -21,7 +21,7 @@ def main() -> None:
     assert text == LINE, "entry.txt does not match the patch note"
     assert 1 <= len(text) <= 160, f"entry.txt is {len(text)} chars, must be 1-160"
     assert "\n" not in text, "entry must be a single line"
-    print(f"Wrote {len(text)} chars to {path}")
+    print(f"Wrote {len(text)} chars to {path}: {text}")
 
 
 if __name__ == "__main__":
